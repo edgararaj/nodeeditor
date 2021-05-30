@@ -234,5 +234,7 @@ nodePortIsEmpty(PortType portType, PortIndex portIndex) const
   if (entries[portIndex].empty()) return true;
 
   const auto outPolicy = _node->nodeDataModel()->portOutConnectionPolicy(portIndex);
-  return ( portType == PortType::Out && outPolicy == NodeDataModel::ConnectionPolicy::Many);
+  const auto inPolicy = _node->nodeDataModel()->portInConnectionPolicy(portIndex);
+  return (portType == PortType::Out && outPolicy == NodeDataModel::ConnectionPolicy::Many) ||
+          (portType == PortType::In && inPolicy == NodeDataModel::ConnectionPolicy::Many);
 }
